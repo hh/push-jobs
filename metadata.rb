@@ -11,11 +11,11 @@ version          '2.2.0'
 supports 'ubuntu'
 supports 'centos'
 supports 'debian'
-supports 'windows'
+#supports 'windows'
 
 # For per-platform resources, respectively
 depends 'runit'
-depends 'windows'
+#depends 'windows'
 
 attribute('push_jobs/package_url',
           :description => 'URL to a client package to download

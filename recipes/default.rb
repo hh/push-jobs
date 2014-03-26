@@ -25,14 +25,16 @@ unless (node['push_jobs']['package_url'] && node['push_jobs']['package_checksum'
 end
 
 unless (node['push_jobs']['whitelist'].is_a? Hash)
-  raise "node['push_jobs']['whitelist'] should have a hash value!"
+  if Chef::Version.new(Chef::VERSION).major > 10
+    raise "node['push_jobs']['whitelist'] should have a hash value!"
+  end
 end
 
 case node['platform_family']
 when 'windows'
   include_recipe 'push-jobs::windows'
 when 'debian', 'rhel'
-  include_recipe 'push-jobs::linux'
+  include_recipe 'push-jobs::linux' if Chef::Version.new(Chef::VERSION).major > 10
 else
   raise 'This cookbook currently supports only Windows, Debian-family Linux, and RHEL-family Linux.'
 end
